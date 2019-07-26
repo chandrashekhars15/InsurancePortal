@@ -8,6 +8,7 @@ using InsuranceClientPortal.Models;
 using System.IO;
 using InsuranceClientPortal.Helpers;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace InsuranceClientPortal.Controllers
 {
@@ -61,6 +62,9 @@ namespace InsuranceClientPortal.Controllers
                 customerEntity.EndDate = customer.EndDate;
                 customerEntity.ImageUrl = imageUri;
                 Customer newCustomer = await storageHelper.SaveInsuranceDetailAsync(customerEntity, "customers");
+
+                string messageText = JsonConvert.SerializeObject(newCustomer);
+                await storageHelper.SendMessageAsync(messageText, "insurance-queue");
             }
             else
             {

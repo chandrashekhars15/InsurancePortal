@@ -73,5 +73,27 @@ namespace InsuranceClientPortal.Helpers
             var result = entity.Result as Customer;
             return result;
         }
+
+        public async Task<CloudQueue> CreateQueueIsNotExistsAsync(string queueName)
+        {
+            var queue = queueClient.GetQueueReference(queueName);
+            await queue.CreateIfNotExistsAsync();
+            return queue;
+        }
+
+        public async Task<bool> SendMessageAsync(string messageText, string queueName)
+        {
+            var queue = await CreateQueueIsNotExistsAsync(queueName);
+
+            CloudQueueMessage message = new CloudQueueMessage(messageText);
+
+            await queue.AddMessageAsync(message, TimeSpan.FromMinutes(30), TimeSpan.Zero, null, null);
+
+            //TableOperation tableOperation = TableOperation.InsertOrMerge(customer);
+            //var table = await CreateTableIsNotExistsAsync(tableName);
+            //TableResult entity = await table.ExecuteAsync(tableOperation);
+            //var result = entity.Result as Customer;
+            return true;
+        }
     }
 }
