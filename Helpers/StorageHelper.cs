@@ -1,6 +1,7 @@
 ﻿using InsuranceClientPortal.Models;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace InsuranceClientPortal.Helpers
         private CloudStorageAccount storageAccount;
         private CloudBlobClient blobClient;
         private CloudTableClient tableClient;
+        private CloudQueueClient queueClient;
 
         public string StorageConnectionString
         {
@@ -25,6 +27,16 @@ namespace InsuranceClientPortal.Helpers
             {
                 this.storageAccount = CloudStorageAccount.Parse(value);
                 this.blobClient = storageAccount.CreateCloudBlobClient();
+                //this.tableClient = storageAccount.CreateCloudTableClient();
+                this.queueClient = storageAccount.CreateCloudQueueClient();
+            }
+        }
+
+        public string TableConnectionString
+        {
+            set
+            {
+                var sa = CloudStorageAccount.Parse(value);
                 this.tableClient = storageAccount.CreateCloudTableClient();
             }
         }
