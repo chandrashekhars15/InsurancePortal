@@ -27,7 +27,7 @@ namespace InsuranceClientPortal.Helpers
             {
                 this.storageAccount = CloudStorageAccount.Parse(value);
                 this.blobClient = storageAccount.CreateCloudBlobClient();
-                //this.tableClient = storageAccount.CreateCloudTableClient();
+                this.tableClient = storageAccount.CreateCloudTableClient();
                 this.queueClient = storageAccount.CreateCloudQueueClient();
             }
         }
