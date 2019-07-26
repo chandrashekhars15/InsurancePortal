@@ -15,6 +15,10 @@ namespace InsuranceClientPortal.Models
         [Display(Name ="Application Date")]
         public DateTime AppDate { get; set; }
 
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
         public string InsuranceType { get; set; } 
 
         public double Amount { get; set; }

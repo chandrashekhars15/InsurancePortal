@@ -55,6 +55,7 @@ namespace InsuranceClientPortal.Controllers
                 Customer customerEntity = new Customer(customerId, customer.InsuranceType);
                 customerEntity.Amount = customer.Amount;
                 customerEntity.Name = customer.Name;
+                customerEntity.Name = customer.Name;
                 customerEntity.Premium = customer.Premium;
                 customerEntity.AppDate = customer.AppDate;
                 customerEntity.EndDate = customer.EndDate;
